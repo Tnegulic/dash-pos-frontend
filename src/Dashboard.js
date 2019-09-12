@@ -22,7 +22,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import TextField from '@material-ui/core/TextField';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
@@ -112,6 +114,21 @@ const styles = theme => ({
   h5: {
     marginBottom: theme.spacing.unit * 2,
   },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
 });
 
 class Dashboard extends React.Component {
@@ -172,29 +189,45 @@ class Dashboard extends React.Component {
     } else {
       content =<main className={classes.content}>
                 <div className={classes.appBarSpacer} />
+
                   <Typography variant="h4" gutterBottom component="h2">
                     Aparati
                   </Typography>
                   <MachineTable cards={this.state.machines} capacities={this.state.capacities} />
                   <div id="div_trans">
-                  <form onSubmit={this.handleSubmit}>
-                    <h4 id="title_trans">
-                      Dodavanje novog aparata:
-                    </h4>
-                    <label>
-                      Naziv aparata:
-                      <input type="text" id="name" value={this.state.name} onChange={this.handleChange} />
-                    </label>
-                    <label>
-                      Tip aparata:
-                      <input type="text"  id="type" value={this.state.type} onChange={this.handleChange} />
-                    </label>
-                    <label>
-                      Lokacija:
-                      <input type="text" id="location" value={this.state.location} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
+                  <Typography variant="h4" gutterBottom component="h2">
+                    Dodavanje aparata
+                  </Typography>
+                  <form className={classes.container} noValidate autoComplete="off">
+                  <TextField
+                    id="name"
+                    label="Naziv aparata:"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                    margin="normal"
+                    />
+                    <TextField
+                      id="type"
+                      label="Tip:"
+                      className={classes.textField}
+                      value={this.state.type}
+                      onChange={this.handleChange}
+                      margin="normal"
+                      />
+                  <TextField
+                    id="location"
+                    label="Lokacija:"
+                    className={classes.textField}
+                    value={this.state.location}
+                    onChange={this.handleChange}
+                    margin="normal"
+                    />
+                  <Button  variant="outlined" size="small" color="primary" onClick={this.handleSubmit} className={classes.margin}>
+                    Dodaj
+                  </Button>
                   </form>
+
                 </div>
                 </main>;
     }
@@ -302,12 +335,10 @@ class Dashboard extends React.Component {
       model_number: this.state.type,
       name: this.state.name,
       working: true,
-      cups : 0,
-      placeholder1_container1:0,
-      placeholder1_container2:0
     })
      .then(function (response) {
         console.log(response.data + "USER INFO");
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);

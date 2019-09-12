@@ -11,6 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import WarningIcon from '@material-ui/icons/Warning';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 import SimpleTable from './SimpleTable';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -42,7 +43,10 @@ function resetMachine(pk,status){
 
    instance.patch('vending/machines/' + pk + '/', {
     working: !status,
-  });
+  }).then(function (response) {
+     console.log(response.data + "RESET INFO");
+     window.location.reload();
+   });
 
 }
 
@@ -61,35 +65,59 @@ function reset(pk,param,max){
  if (param == 'cups'){
    instance.patch('vending/machines/' + pk + '/', {
     cups: max,
-  });
+  }).then(function (response) {
+     console.log(response.data + "RESET INFO");
+     window.location.reload();
+   });
 }else if (param == 'tea_container') {
   instance.patch('vending/machines/' + pk + '/', {
    tea_container: max,
- });
+ }).then(function (response) {
+    console.log(response.data + "RESET INFO");
+    window.location.reload();
+  });
 }else if (param == 'coffee_container') {
   instance.patch('vending/machines/' + pk + '/', {
    coffee_container: max,
- });
+ }).then(function (response) {
+    console.log(response.data + "RESET INFO");
+    window.location.reload();
+  });
 }else if (param == 'milk_container') {
   instance.patch('vending/machines/' + pk + '/', {
    milk_container: max,
- });
+ }).then(function (response) {
+    console.log(response.data + "RESET INFO");
+    window.location.reload();
+  });
 }else if (param == 'chocolate_container') {
   instance.patch('vending/machines/' + pk + '/', {
    chocolate_container: max,
- });
+ }).then(function (response) {
+    console.log(response.data + "RESET INFO");
+    window.location.reload();
+  });
 }else if (param == 'water_container') {
   instance.patch('vending/machines/' + pk + '/', {
    water_container: max,
- });
+ }).then(function (response) {
+    console.log(response.data + "RESET INFO");
+    window.location.reload();
+  });
 }else if (param == 'irish_container') {
   instance.patch('vending/machines/' + pk + '/', {
    irish_container: max,
- });
+ }).then(function (response) {
+    console.log(response.data + "RESET INFO");
+    window.location.reload();
+  });
 }else if (param == 'decaffeinated_container') {
   instance.patch('vending/machines/' + pk + '/', {
    decaffeinated_container: max,
- });
+ }).then(function (response) {
+    console.log(response.data + "RESET INFO");
+    window.location.reload();
+  });
 }
 
 }
@@ -127,42 +155,42 @@ function MachineTable(props) {
               </TableCell>
               <TableCell align="center">{n.model_number}</TableCell>
               <TableCell align="center">{n.location}</TableCell>
-	      <TableCell align="center">{ ((n.cups!=0)?n.cups + "/"+ props.capacities.max_cups +"   ":<WarningIcon color="secondary" />)}
+	      <TableCell align="center">{n.cups + "/"+ props.capacities.max_cups }{(n.cups>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk,"cups",props.capacities.max_cups)} className={classes.margin}>
         Reset
         </Button>
         </TableCell>
-	      <TableCell align="center">{(n.tea_container!=2)?n.tea_container+ "/"+ props.capacities.max_tea_container +"   ":<WarningIcon color="secondary" />}
+	      <TableCell align="center">{n.tea_container + "/"+ props.capacities.max_tea_container }{(n.tea_container>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk,"tea_container",props.capacities.max_tea_container)} className={classes.margin}>
         Reset
         </Button>
         </TableCell>
-        <TableCell align="center">{(n.coffee_container!=0)?n.coffee_container+ "/"+ props.capacities.max_coffee_container +"   ":<WarningIcon color="secondary" />}
+        <TableCell align="center">{n.coffee_container + "/"+ props.capacities.max_coffee_container }{(n.coffee_container>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk, "coffee_container",props.capacities.max_coffee_container )} className={classes.margin}>
         Reset
         </Button>
         </TableCell>
-        <TableCell align="center">{(n.milk_container!=0)?n.milk_container+ "/"+ props.capacities.max_milk_container +"   ":<WarningIcon color="secondary" />}
+        <TableCell align="center">{n.milk_container + "/"+ props.capacities.max_milk_container }{(n.milk_container>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk, "milk_container",props.capacities.max_milk_container )} className={classes.margin}>
         Reset
         </Button>
         </TableCell>
-        <TableCell align="center">{(n.chocolate_container!=0)?n.chocolate_container+ "/"+ props.capacities.max_chocolate_container +"   ":<WarningIcon color="secondary" />}
+        <TableCell align="center">{n.chocolate_container + "/"+ props.capacities.max_chocolate_container }{(n.chocolate_container>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk, "chocolate_container",props.capacities.max_chocolate_container)} className={classes.margin}>
         Reset
         </Button>
         </TableCell>
-        <TableCell align="center">{(n.decaffeinated_container!=0)?n.decaffeinated_container+ "/"+ props.capacities.max_decaffeinated_container +"   ":<WarningIcon color="secondary" />}
+        <TableCell align="center">{n.decaffeinated_container + "/"+ props.capacities.max_decaffeinated_container }{(n.decaffeinated_container>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk, "decaffeinated_container",props.capacities.max_decaffeinated_container)} className={classes.margin}>
         Reset
         </Button>
         </TableCell>
-        <TableCell align="center">{(n.irish_container!=0)?n.irish_container+ "/"+ props.capacities.max_irish_container +"   ":<WarningIcon color="secondary" />}
+        <TableCell align="center">{n.irish_container + "/"+ props.capacities.max_irish_container }{(n.irish_container>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk, "irish_container",props.capacities.max_irish_container)} className={classes.margin}>
         Reset
         </Button>
         </TableCell>
-        <TableCell align="center">{(n.water_container!=0)?n.water_container+ "/"+ props.capacities.max_water_container +"   ":<WarningIcon color="secondary" />}
+        <TableCell align="center">{n.water_container + "/"+ props.capacities.max_water_container }{(n.water_container>0)?"":<WarningIcon color="secondary" />}
         <Button  variant="outlined" size="small" color="primary" onClick={() => reset(n.pk, "water_container", props.capacities.max_water_container)} className={classes.margin}>
         Reset
         </Button>
